@@ -2,12 +2,12 @@ use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
 
 fn main() {
     better_panic::install();
-    let mnemonic = KeyPhrase::new(KeyPhraseType::Words12, Language::Spanish);
-    let phrase: &str = mnemonic.phrase();
+    let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+    let phrase: &str = keyphrase.phrase();
     println!("phrase: {}", phrase);
 
     // get the HD wallet seed
-    let seed = Seed::new(&mnemonic, "");
+    let seed = Seed::new(&keyphrase, "");
 
     // get the HD wallet seed as raw bytes
     let seed_bytes: &[u8] = seed.as_bytes();

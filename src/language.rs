@@ -1,5 +1,5 @@
-use crate::error::ErrorKind;
-use crate::util::{Bits, Bits11};
+use crate::ErrorKind;
+use crate::{Bits, Bits11};
 use failure::Error;
 use hashbrown::HashMap;
 

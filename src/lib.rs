@@ -6,15 +6,15 @@
 //! ```rust
 //! use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
 //!
-//! /// create a new randomly generated mnemonic phrase
-//! let mnemonic = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+//! /// create a new randomly generated keyphrase
+//! let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
 //!
 //! /// get the phrase
-//! let phrase: &str = mnemonic.phrase();
+//! let phrase: &str = keyphrase.phrase();
 //! println!("phrase: {}", phrase);
 //!
 //! /// get the HD wallet seed
-//! let seed = Seed::new(&mnemonic, "");
+//! let seed = Seed::new(&keyphrase, "");
 //!
 //! // get the HD wallet seed as raw bytes
 //! let seed_bytes: &[u8] = seed.as_bytes();
@@ -46,3 +46,4 @@ pub use error::ErrorKind;
 pub use keyphrase_type::KeyPhraseType;
 pub use language::Language;
 pub use seed::Seed;
+pub use util::*;

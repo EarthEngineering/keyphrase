@@ -3,15 +3,15 @@ extern crate keyphrase;
 use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
 
 fn test_word_count(expected_word_count: usize) {
-    let mnemonic_type = KeyPhraseType::for_word_count(expected_word_count).unwrap();
+    let keyphrase_type = KeyPhraseType::for_word_count(expected_word_count).unwrap();
 
-    let mnemonic = KeyPhrase::new(mnemonic_type, Language::English);
-    let actual_word_count = mnemonic.phrase().split(" ").count();
+    let keyphrase = KeyPhrase::new(keyphrase_type, Language::English);
+    let actual_word_count = keyphrase.phrase().split(" ").count();
 
     assert_eq!(actual_word_count, expected_word_count);
-    assert_eq!(mnemonic_type.word_count(), expected_word_count);
+    assert_eq!(keyphrase_type.word_count(), expected_word_count);
 
-    let seed = Seed::new(&mnemonic, "");
+    let seed = Seed::new(&keyphrase, "");
     let seed_bytes: &[u8] = seed.as_bytes();
 
     assert!(seed_bytes.len() == 64);

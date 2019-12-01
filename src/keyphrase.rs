@@ -46,8 +46,8 @@ impl KeyPhrase {
     /// ```
     /// use keyphrase::{KeyPhrase, KeyPhraseType, Language};
     ///
-    /// let mnemonic = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
-    /// let phrase = mnemonic.phrase();
+    /// let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+    /// let phrase = keyphrase.phrase();
     ///
     /// println!("phrase: {}", phrase);
     ///
@@ -70,10 +70,10 @@ impl KeyPhrase {
     /// use keyphrase::{KeyPhrase, KeyPhraseType, Language};
     ///
     /// let entropy = &[0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84, 0x6A, 0x79];
-    /// let mnemonic = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
+    /// let keyphrase = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
     ///
-    /// assert_eq!("crop cash unable insane eight faith inflict route frame loud box vibrant", mnemonic.phrase());
-    /// assert_eq!("33E46BB13A746EA41CDDE45C90846A79", format!("{:X}", mnemonic));
+    /// assert_eq!("crop cash unable insane eight faith inflict route frame loud box vibrant", keyphrase.phrase());
+    /// assert_eq!("33E46BB13A746EA41CDDE45C90846A79", format!("{:X}", keyphrase));
     /// ```
     ///
     /// [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
@@ -127,9 +127,9 @@ impl KeyPhrase {
     /// use keyphrase::{KeyPhrase, Language};
     ///
     /// let phrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
-    /// let mnemonic = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
+    /// let keyphrase = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
     ///
-    /// assert_eq!(phrase, mnemonic.phrase());
+    /// assert_eq!(phrase, keyphrase.phrase());
     /// ```
     ///
     /// [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
@@ -144,16 +144,16 @@ impl KeyPhrase {
         // takes a phrase string and returns the entropy directly.
         let entropy = KeyPhrase::phrase_to_entropy(&phrase, lang)?;
 
-        let mnemonic = KeyPhrase {
+        let keyphrase = KeyPhrase {
             phrase,
             lang,
             entropy,
         };
 
-        Ok(mnemonic)
+        Ok(keyphrase)
     }
 
-    /// Validate a mnemonic phrase
+    /// Validate a keyphrase
     ///
     /// The phrase supplied will be checked for word length and validated according to the checksum
     /// specified in BIP0039.
@@ -225,7 +225,7 @@ impl KeyPhrase {
         self.phrase
     }
 
-    /// Get the original entropy value of the mnemonic phrase as a slice.
+    /// Get the original entropy value of the keyphrase as a slice.
     ///
     /// # Example
     ///
@@ -234,9 +234,9 @@ impl KeyPhrase {
     ///
     /// let phrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let mnemonic = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
+    /// let keyphrase = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
     ///
-    /// let entropy: &[u8] = mnemonic.entropy();
+    /// let entropy: &[u8] = keyphrase.entropy();
     /// ```
     ///
     /// **Note:** You shouldn't use the generated entropy as secrets, for that generate a new
@@ -329,9 +329,9 @@ mod test {
         ];
         let phrase = "crop cash unable insane eight faith inflict route frame loud box vibrant";
 
-        let mnemonic = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
+        let keyphrase = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
 
-        assert_eq!(phrase, mnemonic.phrase());
+        assert_eq!(phrase, keyphrase.phrase());
     }
 
     #[test]
@@ -342,16 +342,16 @@ mod test {
         ];
         let phrase = "crop cash unable insane eight faith inflict route frame loud box vibrant";
 
-        let mnemonic = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
+        let keyphrase = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
 
-        assert_eq!(entropy, mnemonic.entropy());
+        assert_eq!(entropy, keyphrase.entropy());
     }
 
     #[test]
     fn mnemonic_format() {
-        let mnemonic = KeyPhrase::new(KeyPhraseType::Words15, Language::English);
+        let keyphrase = KeyPhrase::new(KeyPhraseType::Words15, Language::English);
 
-        assert_eq!(mnemonic.phrase(), format!("{}", mnemonic));
+        assert_eq!(keyphrase.phrase(), format!("{}", keyphrase));
     }
 
     #[test]
@@ -361,22 +361,22 @@ mod test {
             0x6A, 0x79,
         ];
 
-        let mnemonic = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
+        let keyphrase = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
 
         assert_eq!(
-            format!("{:x}", mnemonic),
+            format!("{:x}", keyphrase),
             "33e46bb13a746ea41cdde45c90846a79"
         );
         assert_eq!(
-            format!("{:X}", mnemonic),
+            format!("{:X}", keyphrase),
             "33E46BB13A746EA41CDDE45C90846A79"
         );
         assert_eq!(
-            format!("{:#x}", mnemonic),
+            format!("{:#x}", keyphrase),
             "0x33e46bb13a746ea41cdde45c90846a79"
         );
         assert_eq!(
-            format!("{:#X}", mnemonic),
+            format!("{:#X}", keyphrase),
             "0x33E46BB13A746EA41CDDE45C90846A79"
         );
     }
