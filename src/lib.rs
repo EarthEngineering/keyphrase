@@ -1,9 +1,5 @@
 //!
-//! This is a Rust implementation of the [bip39][bip39-standard] standard for Bitcoin HD wallet
-//! mnemonic phrases.
-//!
-//!
-//! [bip39-standard]: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
+//! Coder/Decoder for Addresses on the [EARTH Network](https://www.earth.engineering).
 //!
 //! ## Quickstart
 //!

@@ -1,14 +1,14 @@
-//! These are internal helper functions used when creating a new [`Mnemonic`][Mnemonic], and when turning a [`Mnemonic`][Mnemonic]
+//! These are internal helper functions used when creating a new [`KeyPhrase`][KeyPhrase], and when turning a [`KeyPhrase`][KeyPhrase]
 //! into a [`Seed`][Seed].
 //!
-//! [Mnemonic]: ../mnemonic/struct.Mnemonic.html
+//! [Mnemonic]: ../keyphrase/struct.KeyPhrase.html
 //! [Seed]: ../seed/struct.Seed.html
 //!
 
 extern crate rand;
-use self::rand::{ thread_rng, RngCore };
-use sha2::Digest;
+use self::rand::{thread_rng, RngCore};
 use hmac::Hmac;
+use sha2::Digest;
 
 const PBKDF2_ROUNDS: usize = 2048;
 const PBKDF2_BYTES: usize = 64;
@@ -29,9 +29,9 @@ pub(crate) fn gen_random_bytes(byte_length: usize) -> Vec<u8> {
 
     bytes
 }
-/// PBKDF2 helper, used to generate [`Seed`][Seed] from [`Mnemonic`][Mnemonic]
+/// PBKDF2 helper, used to generate [`Seed`][Seed] from [`KeyPhrase`][KeyPhrase]
 ///
-/// [Mnemonic]: ../mnemonic/struct.Mnemonic.html
+/// [Mnemonic]: ../keyphrase/struct.KeyPhrase.html
 /// [Seed]: ../seed/struct.Seed.html
 ///
 pub(crate) fn pbkdf2(input: &[u8], salt: &str) -> Vec<u8> {

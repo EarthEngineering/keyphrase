@@ -4,9 +4,9 @@ use std::fmt;
 
 const ENTROPY_OFFSET: usize = 8;
 
-/// Determines the number of words that will be present in a [`Mnemonic`][Mnemonic] phrase
+/// Determines the number of words that will be present in a [`KeyPhrase`][KeyPhrase] phrase
 ///
-/// Also directly affects the amount of entropy that will be used to create a [`Mnemonic`][Mnemonic],
+/// Also directly affects the amount of entropy that will be used to create a [`KeyPhrase`][KeyPhrase],
 /// and therefore the cryptographic strength of the HD wallet keys/addresses that can be derived from
 /// it using the [`Seed`][Seed].
 ///
@@ -26,7 +26,7 @@ const ENTROPY_OFFSET: usize = 8;
 /// ```
 ///
 /// [MnemonicType]: ../mnemonic_type/struct.MnemonicType.html
-/// [Mnemonic]: ../mnemonic/struct.Mnemonic.html
+/// [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
 /// [Seed]: ../seed/struct.Seed.html
 ///
 #[derive(Debug, Copy, Clone)]

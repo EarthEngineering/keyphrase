@@ -2,9 +2,9 @@ use crate::crypto::pbkdf2;
 use crate::keyphrase::KeyPhrase;
 use std::fmt;
 
-/// The secret value used to derive HD wallet addresses from a [`Mnemonic`][Mnemonic] phrase.
+/// The secret value used to derive HD wallet addresses from a [`KeyPhrase`][KeyPhrase] phrase.
 ///
-/// Because it is not possible to create a [`Mnemonic`][Mnemonic] instance that is invalid, it is
+/// Because it is not possible to create a [`KeyPhrase`][KeyPhrase] instance that is invalid, it is
 /// therefore impossible to have a [`Seed`][Seed] instance that is invalid. This guarantees that only
 /// a valid, intact mnemonic phrase can be used to derive HD wallet addresses.
 ///
@@ -12,7 +12,7 @@ use std::fmt;
 /// HD wallet addresses using another crate (deriving HD wallet addresses is outside the scope of this
 /// crate and the BIP39 standard).
 ///
-/// [Mnemonic]: ./mnemonic/struct.Mnemonic.html
+/// [KeyPhrase]: ./keyphrase/struct.KeyPhrase.html
 /// [Seed]: ./seed/struct.Seed.html
 /// [Seed::as_bytes()]: ./seed/struct.Seed.html#method.as_bytes
 
@@ -22,9 +22,9 @@ pub struct Seed {
 }
 
 impl Seed {
-    /// Generates the seed from the [`Mnemonic`][Mnemonic] and the password.
+    /// Generates the seed from the [`KeyPhrase`][KeyPhrase] and the password.
     ///
-    /// [Mnemonic]: ./mnemonic/struct.Mnemonic.html
+    /// [KeyPhrase]: ./keyphrase/struct.KeyPhrase.html
     pub fn new(mnemonic: &KeyPhrase, password: &str) -> Self {
         let salt = format!("mnemonic{}", password);
         let bytes = pbkdf2(mnemonic.entropy(), &salt);
