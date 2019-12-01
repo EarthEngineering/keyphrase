@@ -1,5 +1,5 @@
 use crate::crypto::pbkdf2;
-use crate::mnemonic::Mnemonic;
+use crate::keyphrase::KeyPhrase;
 use std::fmt;
 
 /// The secret value used to derive HD wallet addresses from a [`Mnemonic`][Mnemonic] phrase.
@@ -25,7 +25,7 @@ impl Seed {
     /// Generates the seed from the [`Mnemonic`][Mnemonic] and the password.
     ///
     /// [Mnemonic]: ./mnemonic/struct.Mnemonic.html
-    pub fn new(mnemonic: &Mnemonic, password: &str) -> Self {
+    pub fn new(mnemonic: &KeyPhrase, password: &str) -> Self {
         let salt = format!("mnemonic{}", password);
         let bytes = pbkdf2(mnemonic.entropy(), &salt);
 

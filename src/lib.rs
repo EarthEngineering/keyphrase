@@ -37,8 +37,8 @@ extern crate pbkdf2;
 extern crate sha2;
 
 mod error;
+mod keyphrase;
 mod language;
-mod mnemonic;
 mod mnemonic_type;
 mod seed;
 mod util;
@@ -46,7 +46,7 @@ mod util;
 mod crypto;
 
 pub use error::ErrorKind;
+pub use keyphrase::KeyPhrase;
 pub use language::Language;
-pub use mnemonic::Mnemonic;
 pub use mnemonic_type::MnemonicType;
 pub use seed::Seed;
