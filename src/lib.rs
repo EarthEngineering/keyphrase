@@ -8,10 +8,10 @@
 //! ## Quickstart
 //!
 //! ```rust
-//! use keyphrase::{Mnemonic, MnemonicType, Language, Seed};
+//! use keyphrase::{KeyPhrase, MnemonicType, Language, Seed};
 //!
 //! /// create a new randomly generated mnemonic phrase
-//! let mnemonic = Mnemonic::new(MnemonicType::Words12, Language::English);
+//! let mnemonic = KeyPhrase::new(MnemonicType::Words12, Language::English);
 //!
 //! /// get the phrase
 //! let phrase: &str = mnemonic.phrase();
@@ -45,8 +45,8 @@ mod util;
 
 mod crypto;
 
+pub use self::keyphrase::KeyPhrase;
 pub use error::ErrorKind;
-pub use keyphrase::KeyPhrase;
 pub use language::Language;
 pub use mnemonic_type::MnemonicType;
 pub use seed::Seed;

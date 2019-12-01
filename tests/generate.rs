@@ -1,11 +1,11 @@
 extern crate keyphrase;
 
-use keyphrase::{Language, Mnemonic, MnemonicType, Seed};
+use keyphrase::{KeyPhrase, Language, MnemonicType, Seed};
 
 fn test_word_count(expected_word_count: usize) {
     let mnemonic_type = MnemonicType::for_word_count(expected_word_count).unwrap();
 
-    let mnemonic = Mnemonic::new(mnemonic_type, Language::English);
+    let mnemonic = KeyPhrase::new(mnemonic_type, Language::English);
     let actual_word_count = mnemonic.phrase().split(" ").count();
 
     assert_eq!(actual_word_count, expected_word_count);
@@ -49,5 +49,5 @@ fn generate_from_invalid_entropy() {
         0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84, 0x6A,
     ];
 
-    assert!(Mnemonic::from_entropy(entropy, Language::English).is_err());
+    assert!(KeyPhrase::from_entropy(entropy, Language::English).is_err());
 }

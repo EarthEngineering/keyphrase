@@ -73,7 +73,7 @@ impl KeyPhrase {
     /// let mnemonic = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
     ///
     /// assert_eq!("crop cash unable insane eight faith inflict route frame loud box vibrant", mnemonic.phrase());
-    /// assert_eq!("33E46BB13A746EA41CDDE45C90846A79", format!("{:X}", KeyPhrase));
+    /// assert_eq!("33E46BB13A746EA41CDDE45C90846A79", format!("{:X}", mnemonic));
     /// ```
     ///
     /// [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
