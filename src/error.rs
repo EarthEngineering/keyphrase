@@ -1,4 +1,4 @@
-use mnemonic_type::MnemonicType;
+use crate::mnemonic_type::MnemonicType;
 
 #[derive(Debug, Fail)]
 pub enum ErrorKind {
@@ -10,6 +10,9 @@ pub enum ErrorKind {
 	InvalidKeysize(usize),
 	#[fail(display = "invalid number of words in phrase: {}", _0)]
 	InvalidWordLength(usize),
-	#[fail(display = "invalid entropy length {}bits for mnemonic type {:?}", _0, _1)]
+	#[fail(
+		display = "invalid entropy length {}bits for mnemonic type {:?}",
+		_0, _1
+	)]
 	InvalidEntropyLength(usize, MnemonicType),
 }

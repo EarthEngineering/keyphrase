@@ -1,4 +1,4 @@
-use error::ErrorKind;
+use crate::error::ErrorKind;
 use failure::Error;
 use std::fmt;
 

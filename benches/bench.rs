@@ -1,48 +1,48 @@
-#![feature(test)]
+// #![feature(test)]
 
-extern crate keyphrase;
-extern crate test;
+// extern crate keyphrase;
+// extern crate test;
 
-use test::Bencher;
+// use test::Bencher;
 
-use keyphrase::{Language, Mnemonic, MnemonicType, Seed};
+// use keyphrase::{Language, Mnemonic, MnemonicType, Seed};
 
-#[bench]
-fn validate(b: &mut Bencher) {
-    let phrase =
-        "silly laptop awake length nature thunder category claim reveal supply attitude drip";
+// #[bench]
+// fn validate(b: &mut Bencher) {
+//     let phrase =
+//         "silly laptop awake length nature thunder category claim reveal supply attitude drip";
 
-    b.iter(|| {
-        let _ = Mnemonic::validate(phrase, Language::English);
-    });
-}
+//     b.iter(|| {
+//         let _ = Mnemonic::validate(phrase, Language::English);
+//     });
+// }
 
-#[bench]
-fn from_entropy(b: &mut Bencher) {
-    let phrase =
-        "silly laptop awake length nature thunder category claim reveal supply attitude drip";
-    let m = Mnemonic::from_phrase(phrase, Language::English).unwrap();
-    let entropy = m.entropy();
+// #[bench]
+// fn from_entropy(b: &mut Bencher) {
+//     let phrase =
+//         "silly laptop awake length nature thunder category claim reveal supply attitude drip";
+//     let m = Mnemonic::from_phrase(phrase, Language::English).unwrap();
+//     let entropy = m.entropy();
 
-    b.iter(|| {
-        let _ = Mnemonic::from_entropy(entropy, Language::English).unwrap();
-    });
-}
+//     b.iter(|| {
+//         let _ = Mnemonic::from_entropy(entropy, Language::English).unwrap();
+//     });
+// }
 
-#[bench]
-fn new_mnemonic(b: &mut Bencher) {
-    b.iter(|| {
-        let _ = Mnemonic::new(MnemonicType::Words12, Language::English);
-    });
-}
+// #[bench]
+// fn new_mnemonic(b: &mut Bencher) {
+//     b.iter(|| {
+//         let _ = Mnemonic::new(MnemonicType::Words12, Language::English);
+//     });
+// }
 
-#[bench]
-fn new_seed(b: &mut Bencher) {
-    let phrase =
-        "silly laptop awake length nature thunder category claim reveal supply attitude drip";
-    let m = Mnemonic::from_phrase(phrase, Language::English).unwrap();
+// #[bench]
+// fn new_seed(b: &mut Bencher) {
+//     let phrase =
+//         "silly laptop awake length nature thunder category claim reveal supply attitude drip";
+//     let m = Mnemonic::from_phrase(phrase, Language::English).unwrap();
 
-    b.iter(|| {
-        let _ = Seed::new(&m, "");
-    });
-}
+//     b.iter(|| {
+//         let _ = Seed::new(&m, "");
+//     });
+// }

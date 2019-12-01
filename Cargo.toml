@@ -1,5 +1,4 @@
 [package]
-
 name = "keyphrase"
 version = "0.0.1"
 authors = [ "Gabriel Cardona <https://www.earth.engineering>" ]
@@ -10,6 +9,7 @@ readme = "README.md"
 description = "KeyPhrase generation for the EARTH Network"
 documentation = "https://docs.rs/keyphrase"
 keywords = ["bip39", "bitcoin", "mnemonic"]
+edition = "2018"
 
 [lib]
 name = "keyphrase"
@@ -36,3 +36,5 @@ hmac = "0.7.0"
 pbkdf2 = { version = "0.3.0", features=["parallel"], default-features = false }
 rand = "0.6.1"
 once_cell = { version = "0.1.6", features = [ "parking_lot" ] }
+better-panic = "0.2.0"
+
