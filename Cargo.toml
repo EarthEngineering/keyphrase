@@ -1,18 +1,18 @@
 [package]
 
-name = "bip39"
-version = "0.6.0-beta.1"
-authors = [ "Stephen Oliver <steve@infincia.com>" ]
+name = "keyphrase"
+version = "0.0.1"
+authors = [ "Gabriel Cardona <https://www.earth.engineering>" ]
 license = "MIT/Apache-2.0"
-homepage = "https://github.com/infincia/bip39-rs/"
-repository = "https://github.com/infincia/bip39-rs/"
+homepage = "https://www.earth.engineering"
+repository = "https://github.com/EarthEngineering/keyphrase"
 readme = "README.md"
-description = "A Rust implementation of BIP-0039"
-documentation = "https://docs.rs/bip39"
+description = "KeyPhrase generation for the EARTH Network"
+documentation = "https://docs.rs/keyphrase"
 keywords = ["bip39", "bitcoin", "mnemonic"]
 
 [lib]
-name = "bip39"
+name = "keyphrase"
 path = "src/lib.rs"
 
 [features]

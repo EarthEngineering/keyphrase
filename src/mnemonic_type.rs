@@ -20,7 +20,7 @@ const ENTROPY_OFFSET: usize = 8;
 /// passing arbitrary `usize` values:
 ///
 /// ```
-/// use bip39::{MnemonicType};
+/// use keyphrase::{MnemonicType};
 ///
 /// let mnemonic_type = MnemonicType::for_key_size(128).unwrap();
 /// ```
@@ -47,7 +47,7 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use bip39::{MnemonicType};
+    /// use keyphrase::{MnemonicType};
     ///
     /// let mnemonic_type = MnemonicType::for_word_count(12).unwrap();
     /// ```
@@ -58,7 +58,7 @@ impl MnemonicType {
             18 => MnemonicType::Words18,
             21 => MnemonicType::Words21,
             24 => MnemonicType::Words24,
-            _ => Err(ErrorKind::InvalidWordLength(size))?
+            _ => Err(ErrorKind::InvalidWordLength(size))?,
         };
 
         Ok(mnemonic_type)
@@ -71,7 +71,7 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use bip39::{MnemonicType};
+    /// use keyphrase::{MnemonicType};
     ///
     /// let mnemonic_type = MnemonicType::for_key_size(128).unwrap();
     /// ```
@@ -82,7 +82,7 @@ impl MnemonicType {
             192 => MnemonicType::Words18,
             224 => MnemonicType::Words21,
             256 => MnemonicType::Words24,
-            _ => Err(ErrorKind::InvalidKeysize(size))?
+            _ => Err(ErrorKind::InvalidKeysize(size))?,
         };
 
         Ok(mnemonic_type)
@@ -99,7 +99,7 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use bip39::{MnemonicType};
+    /// use keyphrase::{MnemonicType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
@@ -120,7 +120,7 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use bip39::{MnemonicType};
+    /// use keyphrase::{MnemonicType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
@@ -137,7 +137,7 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use bip39::{MnemonicType};
+    /// use keyphrase::{MnemonicType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
@@ -154,7 +154,7 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use bip39::{MnemonicType};
+    /// use keyphrase::{MnemonicType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
@@ -171,7 +171,7 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use bip39::{MnemonicType};
+    /// use keyphrase::{MnemonicType};
     ///
     /// let mnemonic_type = MnemonicType::Words12;
     ///
@@ -190,7 +190,12 @@ impl Default for MnemonicType {
 
 impl fmt::Display for MnemonicType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{} words ({}bits)", self.word_count(), self.entropy_bits())
+        write!(
+            f,
+            "{} words ({}bits)",
+            self.word_count(),
+            self.entropy_bits()
+        )
     }
 }
 
