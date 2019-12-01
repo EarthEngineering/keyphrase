@@ -1,9 +1,9 @@
 extern crate keyphrase;
 
-use keyphrase::{KeyPhrase, Language, MnemonicType, Seed};
+use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
 
 fn test_word_count(expected_word_count: usize) {
-    let mnemonic_type = MnemonicType::for_word_count(expected_word_count).unwrap();
+    let mnemonic_type = KeyPhraseType::for_word_count(expected_word_count).unwrap();
 
     let mnemonic = KeyPhrase::new(mnemonic_type, Language::English);
     let actual_word_count = mnemonic.phrase().split(" ").count();

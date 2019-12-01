@@ -14,23 +14,23 @@ const ENTROPY_OFFSET: usize = 8;
 /// while a 24 word mnemonic phrase is essentially a 256-bit key.
 ///
 /// If you know you want a specific phrase length, you can use the enum variant directly, for example
-/// `MnemonicType::Words12`.
+/// `KeyPhraseType::Words12`.
 ///
-/// You can also get a `MnemonicType` that corresponds to one of the standard BIP39 key sizes by
+/// You can also get a `KeyPhraseType` that corresponds to one of the standard BIP39 key sizes by
 /// passing arbitrary `usize` values:
 ///
 /// ```
-/// use keyphrase::{MnemonicType};
+/// use keyphrase::{KeyPhraseType};
 ///
-/// let mnemonic_type = MnemonicType::for_key_size(128).unwrap();
+/// let mnemonic_type = KeyPhraseType::for_key_size(128).unwrap();
 /// ```
 ///
-/// [MnemonicType]: ../mnemonic_type/struct.MnemonicType.html
+/// [KeyPhraseType]: ../keyphrase_type/struct.KeyPhraseType.html
 /// [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
 /// [Seed]: ../seed/struct.Seed.html
 ///
 #[derive(Debug, Copy, Clone)]
-pub enum MnemonicType {
+pub enum KeyPhraseType {
     //  ... = (entropy_bits << ...)   | checksum_bits
     Words12 = (128 << ENTROPY_OFFSET) | 4,
     Words15 = (160 << ENTROPY_OFFSET) | 5,
@@ -39,59 +39,59 @@ pub enum MnemonicType {
     Words24 = (256 << ENTROPY_OFFSET) | 8,
 }
 
-impl MnemonicType {
-    /// Get a `MnemonicType` for a mnemonic phrase with a specific number of words
+impl KeyPhraseType {
+    /// Get a `KeyPhraseType` for a mnemonic phrase with a specific number of words
     ///
     /// Specifying a word count not provided for by the BIP39 standard will return an `Error`
     /// of kind `ErrorKind::InvalidWordLength`.
     ///
     /// # Example
     /// ```
-    /// use keyphrase::{MnemonicType};
+    /// use keyphrase::{KeyPhraseType};
     ///
-    /// let mnemonic_type = MnemonicType::for_word_count(12).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_word_count(12).unwrap();
     /// ```
-    pub fn for_word_count(size: usize) -> Result<MnemonicType, Error> {
-        let mnemonic_type = match size {
-            12 => MnemonicType::Words12,
-            15 => MnemonicType::Words15,
-            18 => MnemonicType::Words18,
-            21 => MnemonicType::Words21,
-            24 => MnemonicType::Words24,
+    pub fn for_word_count(size: usize) -> Result<KeyPhraseType, Error> {
+        let keyphrase_type = match size {
+            12 => KeyPhraseType::Words12,
+            15 => KeyPhraseType::Words15,
+            18 => KeyPhraseType::Words18,
+            21 => KeyPhraseType::Words21,
+            24 => KeyPhraseType::Words24,
             _ => Err(ErrorKind::InvalidWordLength(size))?,
         };
 
-        Ok(mnemonic_type)
+        Ok(keyphrase_type)
     }
 
-    /// Get a `MnemonicType` for a mnemonic phrase representing the given key size as bits
+    /// Get a `KeyPhraseType` for a mnemonic phrase representing the given key size as bits
     ///
     /// Specifying a key size not provided for by the BIP39 standard will return an `Error`
     /// of kind `ErrorKind::InvalidKeysize`.
     ///
     /// # Example
     /// ```
-    /// use keyphrase::{MnemonicType};
+    /// use keyphrase::{KeyPhraseType};
     ///
-    /// let mnemonic_type = MnemonicType::for_key_size(128).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_key_size(128).unwrap();
     /// ```
-    pub fn for_key_size(size: usize) -> Result<MnemonicType, Error> {
-        let mnemonic_type = match size {
-            128 => MnemonicType::Words12,
-            160 => MnemonicType::Words15,
-            192 => MnemonicType::Words18,
-            224 => MnemonicType::Words21,
-            256 => MnemonicType::Words24,
+    pub fn for_key_size(size: usize) -> Result<KeyPhraseType, Error> {
+        let keyphrase_type = match size {
+            128 => KeyPhraseType::Words12,
+            160 => KeyPhraseType::Words15,
+            192 => KeyPhraseType::Words18,
+            224 => KeyPhraseType::Words21,
+            256 => KeyPhraseType::Words24,
             _ => Err(ErrorKind::InvalidKeysize(size))?,
         };
 
-        Ok(mnemonic_type)
+        Ok(keyphrase_type)
     }
 
-    /// Get a `MnemonicType` for an existing mnemonic phrase
+    /// Get a `KeyPhraseType` for an existing mnemonic phrase
     ///
     /// This can be used when you need information about a mnemonic phrase based on the number of
-    /// words, for example you can get the entropy value using [`MnemonicType::entropy_bits`][MnemonicType::entropy_bits()].
+    /// words, for example you can get the entropy value using [`KeyPhraseType::entropy_bits`][MnemonicType::entropy_bits()].
     ///
     /// Specifying a phrase that does not match one of the standard BIP39 phrase lengths will return
     /// an `Error` of kind `ErrorKind::InvalidWordLength`. The phrase will not be validated in any
@@ -99,17 +99,17 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use keyphrase::{MnemonicType};
+    /// use keyphrase::{KeyPhraseType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let mnemonic_type = MnemonicType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
     ///
-    /// let entropy_bits = mnemonic_type.entropy_bits();
+    /// let entropy_bits = keyphrase_type.entropy_bits();
     /// ```
     ///
-    /// [MnemonicType::entropy_bits()]: ./enum.MnemonicType.html#method.entropy_bits
-    pub fn for_phrase(phrase: &str) -> Result<MnemonicType, Error> {
+    /// [KeyPhraseType::entropy_bits()]: ./enum.KeyPhraseType.html#method.entropy_bits
+    pub fn for_phrase(phrase: &str) -> Result<KeyPhraseType, Error> {
         let word_count = phrase.split(" ").count();
 
         Self::for_word_count(word_count)
@@ -120,13 +120,13 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use keyphrase::{MnemonicType};
+    /// use keyphrase::{KeyPhraseType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let mnemonic_type = MnemonicType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
     ///
-    /// let total_bits = mnemonic_type.total_bits();
+    /// let total_bits = keyphrase_type.total_bits();
     /// ```
     pub fn total_bits(&self) -> usize {
         self.entropy_bits() + self.checksum_bits() as usize
@@ -137,13 +137,13 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use keyphrase::{MnemonicType};
+    /// use keyphrase::{KeyPhraseType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let mnemonic_type = MnemonicType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
     ///
-    /// let entropy_bits = mnemonic_type.entropy_bits();
+    /// let entropy_bits = keyphrase_type.entropy_bits();
     /// ```
     pub fn entropy_bits(&self) -> usize {
         (*self as usize) >> ENTROPY_OFFSET
@@ -154,13 +154,13 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use keyphrase::{MnemonicType};
+    /// use keyphrase::{KeyPhraseType};
     ///
     /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let mnemonic_type = MnemonicType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
     ///
-    /// let checksum_bits = mnemonic_type.checksum_bits();
+    /// let checksum_bits = keyphrase_type.checksum_bits();
     /// ```
     pub fn checksum_bits(&self) -> u8 {
         (*self as usize) as u8
@@ -171,24 +171,24 @@ impl MnemonicType {
     ///
     /// # Example
     /// ```
-    /// use keyphrase::{MnemonicType};
+    /// use keyphrase::{KeyPhraseType};
     ///
-    /// let mnemonic_type = MnemonicType::Words12;
+    /// let keyphrase_type = KeyPhraseType::Words12;
     ///
-    /// let word_count = mnemonic_type.word_count();
+    /// let word_count = keyphrase_type.word_count();
     /// ```
     pub fn word_count(&self) -> usize {
         self.total_bits() / 11
     }
 }
 
-impl Default for MnemonicType {
-    fn default() -> MnemonicType {
-        MnemonicType::Words12
+impl Default for KeyPhraseType {
+    fn default() -> KeyPhraseType {
+        KeyPhraseType::Words12
     }
 }
 
-impl fmt::Display for MnemonicType {
+impl fmt::Display for KeyPhraseType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
@@ -205,28 +205,28 @@ mod test {
 
     #[test]
     fn word_count() {
-        assert_eq!(MnemonicType::Words12.word_count(), 12);
-        assert_eq!(MnemonicType::Words15.word_count(), 15);
-        assert_eq!(MnemonicType::Words18.word_count(), 18);
-        assert_eq!(MnemonicType::Words21.word_count(), 21);
-        assert_eq!(MnemonicType::Words24.word_count(), 24);
+        assert_eq!(KeyPhraseType::Words12.word_count(), 12);
+        assert_eq!(KeyPhraseType::Words15.word_count(), 15);
+        assert_eq!(KeyPhraseType::Words18.word_count(), 18);
+        assert_eq!(KeyPhraseType::Words21.word_count(), 21);
+        assert_eq!(KeyPhraseType::Words24.word_count(), 24);
     }
 
     #[test]
     fn entropy_bits() {
-        assert_eq!(MnemonicType::Words12.entropy_bits(), 128);
-        assert_eq!(MnemonicType::Words15.entropy_bits(), 160);
-        assert_eq!(MnemonicType::Words18.entropy_bits(), 192);
-        assert_eq!(MnemonicType::Words21.entropy_bits(), 224);
-        assert_eq!(MnemonicType::Words24.entropy_bits(), 256);
+        assert_eq!(KeyPhraseType::Words12.entropy_bits(), 128);
+        assert_eq!(KeyPhraseType::Words15.entropy_bits(), 160);
+        assert_eq!(KeyPhraseType::Words18.entropy_bits(), 192);
+        assert_eq!(KeyPhraseType::Words21.entropy_bits(), 224);
+        assert_eq!(KeyPhraseType::Words24.entropy_bits(), 256);
     }
 
     #[test]
     fn checksum_bits() {
-        assert_eq!(MnemonicType::Words12.checksum_bits(), 4);
-        assert_eq!(MnemonicType::Words15.checksum_bits(), 5);
-        assert_eq!(MnemonicType::Words18.checksum_bits(), 6);
-        assert_eq!(MnemonicType::Words21.checksum_bits(), 7);
-        assert_eq!(MnemonicType::Words24.checksum_bits(), 8);
+        assert_eq!(KeyPhraseType::Words12.checksum_bits(), 4);
+        assert_eq!(KeyPhraseType::Words15.checksum_bits(), 5);
+        assert_eq!(KeyPhraseType::Words18.checksum_bits(), 6);
+        assert_eq!(KeyPhraseType::Words21.checksum_bits(), 7);
+        assert_eq!(KeyPhraseType::Words24.checksum_bits(), 8);
     }
 }

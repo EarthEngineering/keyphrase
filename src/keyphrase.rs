@@ -1,7 +1,7 @@
 use crate::crypto::{gen_random_bytes, sha256_first_byte};
 use crate::error::ErrorKind;
+use crate::keyphrase_type::KeyPhraseType;
 use crate::language::Language;
-use crate::mnemonic_type::MnemonicType;
 use crate::util::{checksum, BitWriter, IterExt};
 use failure::Error;
 use std::fmt;
@@ -44,9 +44,9 @@ impl KeyPhrase {
     /// # Example
     ///
     /// ```
-    /// use keyphrase::{KeyPhrase, MnemonicType, Language};
+    /// use keyphrase::{KeyPhrase, KeyPhraseType, Language};
     ///
-    /// let mnemonic = KeyPhrase::new(MnemonicType::Words12, Language::English);
+    /// let mnemonic = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
     /// let phrase = mnemonic.phrase();
     ///
     /// println!("phrase: {}", phrase);
@@ -56,7 +56,7 @@ impl KeyPhrase {
     ///
     /// [KeyPhrase]: ./keyphrase/struct.KeyPhrase.html
     /// [KeyPhrase::phrase()]: ./keyphrase/struct.KeyPhrase.html#method.phrase
-    pub fn new(mtype: MnemonicType, lang: Language) -> KeyPhrase {
+    pub fn new(mtype: KeyPhraseType, lang: Language) -> KeyPhrase {
         let entropy = gen_random_bytes(mtype.entropy_bits() / 8);
 
         KeyPhrase::from_entropy_unchecked(entropy, lang)
@@ -67,7 +67,7 @@ impl KeyPhrase {
     /// # Example
     ///
     /// ```
-    /// use keyphrase::{KeyPhrase, MnemonicType, Language};
+    /// use keyphrase::{KeyPhrase, KeyPhraseType, Language};
     ///
     /// let entropy = &[0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84, 0x6A, 0x79];
     /// let mnemonic = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
@@ -79,7 +79,7 @@ impl KeyPhrase {
     /// [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
     pub fn from_entropy(entropy: &[u8], lang: Language) -> Result<KeyPhrase, Error> {
         // Validate entropy size
-        MnemonicType::for_key_size(entropy.len() * 8)?;
+        KeyPhraseType::for_key_size(entropy.len() * 8)?;
 
         Ok(Self::from_entropy_unchecked(entropy, lang))
     }
@@ -188,7 +188,7 @@ impl KeyPhrase {
             bits.push(wordmap.get_bits(&word)?);
         }
 
-        let mtype = MnemonicType::for_word_count(bits.len() / 11)?;
+        let mtype = KeyPhraseType::for_word_count(bits.len() / 11)?;
 
         debug_assert!(
             bits.len() == mtype.total_bits(),
@@ -311,7 +311,7 @@ mod test {
 
     #[test]
     fn back_to_back() {
-        let m1 = KeyPhrase::new(MnemonicType::Words12, Language::English);
+        let m1 = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
         let m2 = KeyPhrase::from_phrase(m1.phrase(), Language::English).unwrap();
         let m3 = KeyPhrase::from_entropy(m1.entropy(), Language::English).unwrap();
 
@@ -349,7 +349,7 @@ mod test {
 
     #[test]
     fn mnemonic_format() {
-        let mnemonic = KeyPhrase::new(MnemonicType::Words15, Language::English);
+        let mnemonic = KeyPhrase::new(KeyPhraseType::Words15, Language::English);
 
         assert_eq!(mnemonic.phrase(), format!("{}", mnemonic));
     }

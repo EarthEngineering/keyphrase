@@ -1,14 +1,14 @@
 extern crate keyphrase;
 
-use keyphrase::{KeyPhrase, Language, MnemonicType};
+use keyphrase::{KeyPhrase, KeyPhraseType, Language};
 
 fn validate_language(lang: Language) {
     let types = &[
-        MnemonicType::Words12,
-        MnemonicType::Words15,
-        MnemonicType::Words18,
-        MnemonicType::Words21,
-        MnemonicType::Words24,
+        KeyPhraseType::Words12,
+        KeyPhraseType::Words15,
+        KeyPhraseType::Words18,
+        KeyPhraseType::Words21,
+        KeyPhraseType::Words24,
     ];
 
     for mtype in types {

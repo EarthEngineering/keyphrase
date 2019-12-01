@@ -1,4 +1,4 @@
-use crate::mnemonic_type::MnemonicType;
+use crate::keyphrase_type::KeyPhraseType;
 
 #[derive(Debug, Fail)]
 pub enum ErrorKind {
@@ -14,5 +14,5 @@ pub enum ErrorKind {
 		display = "invalid entropy length {}bits for mnemonic type {:?}",
 		_0, _1
 	)]
-	InvalidEntropyLength(usize, MnemonicType),
+	InvalidEntropyLength(usize, KeyPhraseType),
 }

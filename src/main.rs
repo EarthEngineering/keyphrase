@@ -1,8 +1,8 @@
-use keyphrase::{KeyPhrase, Language, MnemonicType, Seed};
+use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
 
 fn main() {
     better_panic::install();
-    let mnemonic = KeyPhrase::new(MnemonicType::Words12, Language::Spanish);
+    let mnemonic = KeyPhrase::new(KeyPhraseType::Words12, Language::Spanish);
     let phrase: &str = mnemonic.phrase();
     println!("phrase: {}", phrase);
 
