@@ -1,7 +1,6 @@
 # KeyPhrase
 
-<!-- ![Key](./key.jpg "Key") -->
-<img src="./key.jpg" style="width: 25%;">
+![Key](./key.jpg "Key")
 
 KeyPhrase generator for the EARTH Network. KeyPhrases are human readable backup phrase which contains most of the information needed to recreate your EARTH addresses.
 
