@@ -4,12 +4,12 @@ pub(crate) trait IterExt: Iterator {
         R: From<String>,
         Self::Item: AsRef<str>,
     {
-        let first = match self.next() {
+        let first: <Self as std::iter::Iterator>::Item = match self.next() {
             Some(first) => first,
             None => return String::new().into(),
         };
 
-        let (lower, _) = self.size_hint();
+        let (lower, _): (usize, _) = self.size_hint();
 
         let mut buffer = String::with_capacity(lower * (10 + glue.len()));
 

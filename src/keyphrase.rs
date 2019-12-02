@@ -6,7 +6,7 @@ use crate::util::{checksum, BitWriter, Bits11, IterExt};
 use failure::Error;
 use std::fmt;
 
-/// The primary type in this crate, most tasks require creating or using one.
+/// Human readable backup phrases which contain most of the information needed to recreate your [EARTH](https://www.earth.engineering) addresses.
 ///
 /// To create a *new* [`KeyPhrase`][KeyPhrase] from a randomly generated key, call [`KeyPhrase::new()`][KeyPhrase::new()].
 ///
@@ -119,7 +119,7 @@ impl KeyPhrase {
     /// Create a [`KeyPhrase`][KeyPhrase] from an existing keyphrase
     ///
     /// The phrase supplied will be checked for word length and validated according to the checksum
-    /// specified in BIP0039
+    /// specified in the [KeyPhrase Spec](https://github.com/EarthEngineering/keyphrase/wiki/KeyPhrase-Specification)
     ///
     /// # Example
     ///
@@ -156,7 +156,7 @@ impl KeyPhrase {
     /// Validate a keyphrase
     ///
     /// The phrase supplied will be checked for word length and validated according to the checksum
-    /// specified in BIP0039.
+    /// specified in the [KeyPhrase Spec](https://github.com/EarthEngineering/keyphrase/wiki/KeyPhrase-Specification).
     ///
     /// # Example
     ///
@@ -214,6 +214,16 @@ impl KeyPhrase {
     }
 
     /// Get the keyphrase as a string reference.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use keyphrase::{KeyPhrase, KeyPhraseType, Language};
+    ///
+    /// let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+    ///
+    /// let phrase = keyphrase.phrase();
+    /// ```
     pub fn phrase(&self) -> &str {
         &self.phrase
     }
@@ -221,6 +231,16 @@ impl KeyPhrase {
     /// Consume the `KeyPhrase` and return the phrase as a `String`.
     ///
     /// This operation doesn't perform any allocations.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use keyphrase::{KeyPhrase, KeyPhraseType, Language};
+    ///
+    /// let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+    ///
+    /// let phrase = keyphrase.into_phrase();
+    /// ```
     pub fn into_phrase(self) -> String {
         self.phrase
     }
