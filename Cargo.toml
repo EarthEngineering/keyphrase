@@ -1,6 +1,6 @@
 [package]
 name = "keyphrase"
-version = "0.0.1"
+version = "0.0.2"
 authors = [ "Gabriel Cardona <https://www.earth.engineering>" ]
 license = "MIT/Apache-2.0"
 homepage = "https://www.earth.engineering"
@@ -8,7 +8,7 @@ repository = "https://github.com/EarthEngineering/keyphrase"
 readme = "README.md"
 description = "KeyPhrase generation for the EARTH Network"
 documentation = "https://docs.rs/keyphrase"
-keywords = ["bip39", "bitcoin", "mnemonic"]
+keywords = ["earth", "keyphrase", "mnemonic"]
 edition = "2018"
 
 [lib]
