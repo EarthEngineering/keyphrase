@@ -1,5 +1,5 @@
 //!
-//! KeyPhrase generator for the [EARTH Network](https://www.earth.engineering). KeyPhrases are [BIP0039](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonics.
+//! KeyPhrase generator for the [EARTH Network](https://www.earth.engineering). KeyPhrases are based on [BIP0039](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonics.
 //!
 //! ## Quickstart
 //!

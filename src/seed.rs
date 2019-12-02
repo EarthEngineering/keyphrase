@@ -6,7 +6,7 @@ use std::fmt;
 ///
 /// Because it is not possible to create a [`KeyPhrase`][KeyPhrase] instance that is invalid, it is
 /// therefore impossible to have a [`Seed`][Seed] instance that is invalid. This guarantees that only
-/// a valid, intact mnemonic phrase can be used to derive HD wallet addresses.
+/// a valid, intact KeyPhrase can be used to derive HD wallet addresses.
 ///
 /// To get the raw byte value use [`Seed::as_bytes()`][Seed::as_bytes()]. These can be used to derive
 /// HD wallet addresses using another crate (deriving HD wallet addresses is outside the scope of this
