@@ -25,9 +25,9 @@ impl Seed {
     /// Generates the seed from the [`KeyPhrase`][KeyPhrase] and the password.
     ///
     /// [KeyPhrase]: ./keyphrase/struct.KeyPhrase.html
-    pub fn new(mnemonic: &KeyPhrase, password: &str) -> Self {
+    pub fn new(keyphrase: &KeyPhrase, password: &str) -> Self {
         let salt = format!("mnemonic{}", password);
-        let bytes = pbkdf2(mnemonic.entropy(), &salt);
+        let bytes = pbkdf2(keyphrase.entropy(), &salt);
 
         Self { bytes }
     }

@@ -14,7 +14,7 @@ fn validate_language(lang: Language) {
     for mtype in types {
         for _ in 0..1000 {
             let m1 = KeyPhrase::new(*mtype, lang);
-            let m2 = KeyPhrase::from_phrase(m1.phrase(), lang).expect("Can create a Mnemonic");
+            let m2 = KeyPhrase::from_phrase(m1.phrase(), lang).expect("Can create a KeyPhrase");
 
             assert_eq!(m1.entropy(), m2.entropy());
         }
@@ -25,35 +25,35 @@ fn validate_language(lang: Language) {
 fn validate_12_english() {
     let phrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
 
-    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a Mnemonic");
+    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a KeyPhrase");
 }
 
 #[test]
 fn validate_15_english() {
     let phrase = "any paddle cabbage armor atom satoshi fiction night wisdom nasty they midnight chicken play phone";
 
-    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a Mnemonic");
+    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a KeyPhrase");
 }
 
 #[test]
 fn validate_18_english() {
     let phrase = "soda oak spy claim best oppose gun ghost school use sign shock sign pipe vote follow category filter";
 
-    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a Mnemonic");
+    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a KeyPhrase");
 }
 
 #[test]
 fn validate_21_english() {
     let phrase = "quality useless orient offer pole host amazing title only clog sight wild anxiety gloom market rescue fan language entry fan oyster";
 
-    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a Mnemonic");
+    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a KeyPhrase");
 }
 
 #[test]
 fn validate_24_english() {
     let phrase = "always guess retreat devote warm poem giraffe thought prize ready maple daughter girl feel clay silent lemon bracket abstract basket toe tiny sword world";
 
-    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a Mnemonic");
+    let _ = KeyPhrase::from_phrase(phrase, Language::English).expect("Can create a KeyPhrase");
 }
 
 #[test]

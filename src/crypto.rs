@@ -1,7 +1,7 @@
 //! These are internal helper functions used when creating a new [`KeyPhrase`][KeyPhrase], and when turning a [`KeyPhrase`][KeyPhrase]
 //! into a [`Seed`][Seed].
 //!
-//! [Mnemonic]: ../keyphrase/struct.KeyPhrase.html
+//! [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
 //! [Seed]: ../seed/struct.Seed.html
 //!
 
@@ -19,7 +19,7 @@ pub(crate) fn sha256_first_byte(input: &[u8]) -> u8 {
     sha2::Sha256::digest(input).as_ref()[0]
 }
 
-/// Random byte generator, used to create new mnemonics
+/// Random byte generator, used to create new keyphrases
 ///
 pub(crate) fn gen_random_bytes(byte_length: usize) -> Vec<u8> {
     let mut rng = thread_rng();
@@ -31,7 +31,7 @@ pub(crate) fn gen_random_bytes(byte_length: usize) -> Vec<u8> {
 }
 /// PBKDF2 helper, used to generate [`Seed`][Seed] from [`KeyPhrase`][KeyPhrase]
 ///
-/// [Mnemonic]: ../keyphrase/struct.KeyPhrase.html
+/// [KeyPhrase]: ../keyphrase/struct.KeyPhrase.html
 /// [Seed]: ../seed/struct.Seed.html
 ///
 pub(crate) fn pbkdf2(input: &[u8], salt: &str) -> Vec<u8> {

@@ -10,8 +10,8 @@ const ENTROPY_OFFSET: usize = 8;
 /// and therefore the cryptographic strength of the HD wallet keys/addresses that can be derived from
 /// it using the [`Seed`][Seed].
 ///
-/// For example, a 12 word mnemonic phrase is essentially a friendly representation of a 128-bit key,
-/// while a 24 word mnemonic phrase is essentially a 256-bit key.
+/// For example, a 12 word keyphrase is essentially a friendly representation of a 128-bit key,
+/// while a 24 word keyphrase is essentially a 256-bit key.
 ///
 /// If you know you want a specific phrase length, you can use the enum variant directly, for example
 /// `KeyPhraseType::Words12`.
@@ -22,7 +22,7 @@ const ENTROPY_OFFSET: usize = 8;
 /// ```
 /// use keyphrase::{KeyPhraseType};
 ///
-/// let mnemonic_type = KeyPhraseType::for_key_size(128).unwrap();
+/// let keyphrase_type = KeyPhraseType::for_key_size(128).unwrap();
 /// ```
 ///
 /// [KeyPhraseType]: ../keyphrase_type/struct.KeyPhraseType.html
@@ -40,7 +40,7 @@ pub enum KeyPhraseType {
 }
 
 impl KeyPhraseType {
-    /// Get a `KeyPhraseType` for a mnemonic phrase with a specific number of words
+    /// Get a `KeyPhraseType` for a keyphrase with a specific number of words
     ///
     /// Specifying a word count not provided for by the BIP39 standard will return an `Error`
     /// of kind `ErrorKind::InvalidWordLength`.
@@ -64,7 +64,7 @@ impl KeyPhraseType {
         Ok(keyphrase_type)
     }
 
-    /// Get a `KeyPhraseType` for a mnemonic phrase representing the given key size as bits
+    /// Get a `KeyPhraseType` for a keyphrase representing the given key size as bits
     ///
     /// Specifying a key size not provided for by the BIP39 standard will return an `Error`
     /// of kind `ErrorKind::InvalidKeysize`.
@@ -88,10 +88,10 @@ impl KeyPhraseType {
         Ok(keyphrase_type)
     }
 
-    /// Get a `KeyPhraseType` for an existing mnemonic phrase
+    /// Get a `KeyPhraseType` for an existing keyphrase
     ///
-    /// This can be used when you need information about a mnemonic phrase based on the number of
-    /// words, for example you can get the entropy value using [`KeyPhraseType::entropy_bits`][MnemonicType::entropy_bits()].
+    /// This can be used when you need information about a keyphrase based on the number of
+    /// words, for example you can get the entropy value using [`KeyPhraseType::entropy_bits`][KeyPhraseType::entropy_bits()].
     ///
     /// Specifying a phrase that does not match one of the standard BIP39 phrase lengths will return
     /// an `Error` of kind `ErrorKind::InvalidWordLength`. The phrase will not be validated in any
@@ -101,9 +101,9 @@ impl KeyPhraseType {
     /// ```
     /// use keyphrase::{KeyPhraseType};
     ///
-    /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
+    /// let test_keyphrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_keyphrase).unwrap();
     ///
     /// let entropy_bits = keyphrase_type.entropy_bits();
     /// ```
@@ -122,9 +122,9 @@ impl KeyPhraseType {
     /// ```
     /// use keyphrase::{KeyPhraseType};
     ///
-    /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
+    /// let test_keyphrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_keyphrase).unwrap();
     ///
     /// let total_bits = keyphrase_type.total_bits();
     /// ```
@@ -139,9 +139,9 @@ impl KeyPhraseType {
     /// ```
     /// use keyphrase::{KeyPhraseType};
     ///
-    /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
+    /// let test_keyphrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_keyphrase).unwrap();
     ///
     /// let entropy_bits = keyphrase_type.entropy_bits();
     /// ```
@@ -156,9 +156,9 @@ impl KeyPhraseType {
     /// ```
     /// use keyphrase::{KeyPhraseType};
     ///
-    /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
+    /// let test_keyphrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// let keyphrase_type = KeyPhraseType::for_phrase(test_mnemonic).unwrap();
+    /// let keyphrase_type = KeyPhraseType::for_phrase(test_keyphrase).unwrap();
     ///
     /// let checksum_bits = keyphrase_type.checksum_bits();
     /// ```

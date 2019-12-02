@@ -116,7 +116,7 @@ impl KeyPhrase {
         }
     }
 
-    /// Create a [`KeyPhrase`][KeyPhrase] from an existing mnemonic phrase
+    /// Create a [`KeyPhrase`][KeyPhrase] from an existing keyphrase
     ///
     /// The phrase supplied will be checked for word length and validated according to the checksum
     /// specified in BIP0039
@@ -163,9 +163,9 @@ impl KeyPhrase {
     /// ```
     /// use keyphrase::{KeyPhrase, Language};
     ///
-    /// let test_mnemonic = "park remain person kitchen mule spell knee armed position rail grid ankle";
+    /// let test_keyphrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
     ///
-    /// assert!(KeyPhrase::validate(test_mnemonic, Language::English).is_ok());
+    /// assert!(KeyPhrase::validate(test_keyphrase, Language::English).is_ok());
     /// ```
     pub fn validate(phrase: &str, lang: Language) -> Result<(), Error> {
         KeyPhrase::phrase_to_entropy(phrase, lang)?;
@@ -213,7 +213,7 @@ impl KeyPhrase {
         Ok(entropy)
     }
 
-    /// Get the mnemonic phrase as a string reference.
+    /// Get the keyphrase as a string reference.
     pub fn phrase(&self) -> &str {
         &self.phrase
     }
@@ -322,7 +322,7 @@ mod test {
     }
 
     #[test]
-    fn mnemonic_from_entropy() {
+    fn keyphrase_from_entropy() {
         let entropy = &[
             0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84,
             0x6A, 0x79,
@@ -335,7 +335,7 @@ mod test {
     }
 
     #[test]
-    fn mnemonic_from_phrase() {
+    fn keyphrase_from_phrase() {
         let entropy = &[
             0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84,
             0x6A, 0x79,
@@ -348,14 +348,14 @@ mod test {
     }
 
     #[test]
-    fn mnemonic_format() {
+    fn keyphrase_format() {
         let keyphrase = KeyPhrase::new(KeyPhraseType::Words15, Language::English);
 
         assert_eq!(keyphrase.phrase(), format!("{}", keyphrase));
     }
 
     #[test]
-    fn mnemonic_hex_format() {
+    fn keyphrase_hex_format() {
         let entropy = &[
             0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84,
             0x6A, 0x79,

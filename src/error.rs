@@ -11,7 +11,7 @@ pub enum ErrorKind {
 	#[fail(display = "invalid number of words in phrase: {}", _0)]
 	InvalidWordLength(usize),
 	#[fail(
-		display = "invalid entropy length {}bits for mnemonic type {:?}",
+		display = "invalid entropy length {}bits for keyphrase type {:?}",
 		_0, _1
 	)]
 	InvalidEntropyLength(usize, KeyPhraseType),

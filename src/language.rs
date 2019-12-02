@@ -94,7 +94,7 @@ mod lazy {
     pub static WORDMAP_SPANISH: Lazy<WordMap> = sync_lazy! { gen_wordmap(&WORDLIST_SPANISH) };
 }
 
-/// The language determines which words will be used in a mnemonic phrase, but also indirectly
+/// The language determines which words will be used in a keyphrase, but also indirectly
 /// determines the binary value of each word when a [`KeyPhrase`][KeyPhrase] is turned into a [`Seed`][Seed].
 ///
 /// These are not of much use right now, and may even be removed from the crate, as there is no
