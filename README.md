@@ -16,8 +16,8 @@ Technically KeyPhrases are [BIP0039](https://github.com/bitcoin/bips/blob/master
     println!("----------");
 
     // English:
-    // KeyPhrase: never snack lazy weasel fault online obvious seminar coin come hazard seat
-    // Root Seed: 3C9C95B810C2D1EA785D9755B8461A8AA254FB23CFFB3C665C38DAA7F570725E547E554FFEB2D2E38D966FF4A6008B75F733FEF9899134889571B7F99B358
+    // KeyPhrase: habit treat fringe blouse jump tomato hello become more planet list rhythm
+    // Root Seed: 1CD312DB19E0644921616B0E44B4051F2FB5D19567D4866B7AF6C7676746F94FE0E49355397BBF53659882FB928C4DF3AABD32327E88AD732770CE21ECC20
     // ----------
 
     println!("Korean:");
