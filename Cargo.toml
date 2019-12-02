@@ -1,6 +1,6 @@
 [package]
 name = "keyphrase"
-version = "0.1.1"
+version = "0.1.2"
 authors = [ "Gabriel Cardona <https://www.earth.engineering>" ]
 license = "MIT/Apache-2.0"
 homepage = "https://www.earth.engineering"

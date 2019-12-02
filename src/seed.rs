@@ -25,6 +25,20 @@ impl Seed {
     /// Generates the seed from the [`KeyPhrase`][KeyPhrase] and the password.
     ///
     /// [KeyPhrase]: ./keyphrase/struct.KeyPhrase.html
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
+    ///
+    /// let word_count: KeyPhraseType = KeyPhraseType::Words15;
+    ///
+    /// let lang: Language = Language::English;
+    ///
+    /// let keyphrase: KeyPhrase = KeyPhrase::new(word_count, lang);
+    ///
+    /// let seed: Seed = Seed::new(&keyphrase, "");
+    /// ```
     pub fn new(keyphrase: &KeyPhrase, password: &str) -> Self {
         let salt: String = format!("keyphrase{}", password);
         let bytes: Vec<u8> = pbkdf2(keyphrase.entropy(), &salt);
@@ -33,6 +47,22 @@ impl Seed {
     }
 
     /// Get the seed value as a byte slice
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
+    ///
+    /// let word_count: KeyPhraseType = KeyPhraseType::Words15;
+    ///
+    /// let lang: Language = Language::English;
+    ///
+    /// let keyphrase: KeyPhrase = KeyPhrase::new(word_count, lang);
+    ///
+    /// let seed: Seed = Seed::new(&keyphrase, "");
+    ///     
+    /// let seed_bytes: &[u8] = seed.as_bytes();
+    /// ```
     pub fn as_bytes(&self) -> &[u8] {
         &self.bytes
     }

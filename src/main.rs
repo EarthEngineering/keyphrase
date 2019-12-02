@@ -4,35 +4,19 @@ fn main() {
     better_panic::install();
 
     println!("English:");
-    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+    let word_count: KeyPhraseType = KeyPhraseType::Words15;
+    let lang: Language = Language::English;
+    let keyphrase: KeyPhrase = KeyPhrase::new(word_count, lang);
     let phrase: &str = keyphrase.phrase();
-    println!("KeyPhrase: {}", phrase);
+    println!("KeyPhrase: {:#?}", phrase);
+    let lang: Language = keyphrase.language();
+    println!("lang: {:#?}", lang);
 
-    // get the HD wallet seed
-    let seed = Seed::new(&keyphrase, "");
-    println!("Root Seed: {:X}", seed);
-    println!("----------");
-
-    println!("Korean:");
-    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words12, Language::Korean);
-    let phrase: &str = keyphrase.phrase();
-    println!("KeyPhrase: {}", phrase);
-    println!("----------");
-
-    println!("Italian:");
-    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words12, Language::Italian);
-    let phrase: &str = keyphrase.phrase();
-    println!("KeyPhrase: {}", phrase);
-    println!("----------");
-
-    println!("Chinese Traditional:");
-    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words24, Language::ChineseTraditional);
-    let phrase: &str = keyphrase.phrase();
-    println!("KeyPhrase: {}", phrase);
-    println!("----------");
+    // let seed: Seed = Seed::new(&keyphrase, "");
 
     // get the HD wallet seed as raw bytes
     // let seed_bytes: &[u8] = seed.as_bytes();
+    // println!("seed_bytes: {:#?}", seed_bytes);
 
     // print the HD wallet seed as a hex string
     // println!("{:X}", seed_bytes);

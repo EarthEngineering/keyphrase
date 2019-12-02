@@ -268,6 +268,18 @@ impl KeyPhrase {
     /// Get the [`Language`][Language]
     ///
     /// [Language]: ../language/struct.Language.html
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use keyphrase::{KeyPhrase, Language};
+    ///
+    /// let phrase = "park remain person kitchen mule spell knee armed position rail grid ankle";
+    ///
+    /// let keyphrase = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
+    ///
+    /// let lang = keyphrase.language();
+    /// ```
     pub fn language(&self) -> Language {
         self.lang
     }
