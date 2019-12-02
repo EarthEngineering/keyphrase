@@ -17,9 +17,6 @@
 //! /// get the HD wallet seed
 //! let seed = Seed::new(&keyphrase, "");
 //!
-//! // get the HD wallet seed as raw bytes
-//! let seed_bytes: &[u8] = seed.as_bytes();
-//!
 //! // print the HD wallet seed as a hex string
 //! println!("{:X}", seed);
 //! // F9BF84A82DD338E08FF79096A8E9ABB3C621B61C64F4906C7FC8BD27B63CEA3773B1EA464CDE3B1272364C6F673713FCB07C97357E75C31EF787E9C251BEDB
