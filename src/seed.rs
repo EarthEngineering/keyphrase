@@ -100,10 +100,19 @@ impl fmt::UpperHex for Seed {
             f.write_str("0x")?;
         }
 
+        // TODO - Why are values which are less than 10 (in base 10) dropping the leading 0 when converted to hex?
+        // Ex: 03 becomes 3 which is causing the final seed string to be odd numbers. Is this an issue?
+        // for byte in &self.bytes {
+        //     if byte < &10 {
+        //         write!(f, "0{:X}", byte)?;
+        //     } else {
+        //         write!(f, "{:X}", byte)?;
+        //     }
+        // }
+
         for byte in &self.bytes {
             write!(f, "{:X}", byte)?;
         }
-
         Ok(())
     }
 }
