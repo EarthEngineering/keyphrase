@@ -11,7 +11,8 @@
 //!
 //! /// get the phrase
 //! let phrase: &str = keyphrase.phrase();
-//! println!("phrase: {}", phrase);
+//! println!("{}", phrase);
+//! // grocery unknown bench gold grant slim assist monster laptop cruise hamster any
 //!
 //! /// get the HD wallet seed
 //! let seed = Seed::new(&keyphrase, "");
@@ -21,6 +22,7 @@
 //!
 //! // print the HD wallet seed as a hex string
 //! println!("{:X}", seed);
+//! // F9BF84A82DD338E08FF79096A8E9ABB3C621B61C64F4906C7FC8BD27B63CEA3773B1EA464CDE3B1272364C6F673713FCB07C97357E75C31EF787E9C251BEDB
 //! ```
 //!
 #[macro_use]

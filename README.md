@@ -7,8 +7,8 @@ Technically KeyPhrases are [BIP0039](https://github.com/bitcoin/bips/blob/master
 ```rust
     let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
     let phrase: &str = keyphrase.phrase();
-    println!("phrase: {}", phrase);
-    // phrase: gather message kiss they verify artwork current else muscle skin connect chicken
+    println!("{}", phrase);
+    // gather message kiss they verify artwork current else muscle skin connect chicken
 
     // get the HD wallet seed
     let seed = Seed::new(&keyphrase, "");
