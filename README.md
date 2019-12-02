@@ -18,15 +18,17 @@ Technically KeyPhrases are [BIP0039](https://github.com/bitcoin/bips/blob/master
 
 ## Word Lengths
 
-- 12
-- 15
-- 18
-- 21
-- 24
+Variable length KeyPhrases are supported from 12 to 24 words and 128 bits to 256 bits respectively. Defaults is 12 words/128 bits.
+
+- 12 (128 bits)
+- 15 (160 bits)
+- 18 (192 bits)
+- 21 (224 bits)
+- 24 (256 bits)
 
 ## Languages
 
-KeyPhrase supports 8 languages
+KeyPhrase supports 8 languages and defaults to English.
 
 - [English](./src/langs/english.txt)
 - [Spanish](./src/langs/spanish.txt)
