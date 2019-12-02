@@ -6,7 +6,7 @@ pub(crate) trait IterExt: Iterator {
     {
         let first = match self.next() {
             Some(first) => first,
-            None        => return String::new().into()
+            None => return String::new().into(),
         };
 
         let (lower, _) = self.size_hint();
@@ -97,12 +97,12 @@ impl BitWriter {
         Self {
             offset: 0,
             remainder: 0,
-            inner: Vec::with_capacity(bytes)
+            inner: Vec::with_capacity(bytes),
         }
     }
 
     pub fn push<B: Bits>(&mut self, source: B) {
-        let shift = 32 - B::SIZE;
+        let shift: usize = 32 - B::SIZE;
 
         self.remainder |= (source.bits() << shift) >> self.offset;
         self.offset += B::SIZE;
@@ -162,13 +162,13 @@ where
 
     fn next(&mut self) -> Option<Out> {
         while self.read < Out::SIZE {
-            let bits = self.source.next()?.bits() as u64;
+            let bits: u64 = self.source.next()?.bits() as u64;
 
             self.read += In::SIZE;
             self.buffer |= bits << (64 - self.read);
         }
 
-        let result = (self.buffer >> (64 - Out::SIZE)) as u16;
+        let result: u16 = (self.buffer >> (64 - Out::SIZE)) as u16;
 
         self.buffer <<= Out::SIZE;
         self.read -= Out::SIZE;
@@ -177,9 +177,12 @@ where
     }
 
     fn size_hint(&self) -> (usize, Option<usize>) {
-        let (lower, upper) = self.source.size_hint();
+        let (lower, upper): (usize, Option<usize>) = self.source.size_hint();
 
-        ((lower * In::SIZE) / Out::SIZE, upper.map(|n| (n * In::SIZE) / Out::SIZE))
+        (
+            (lower * In::SIZE) / Out::SIZE,
+            upper.map(|n| (n * In::SIZE) / Out::SIZE),
+        )
     }
 }
 

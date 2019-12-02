@@ -52,7 +52,7 @@ impl KeyPhraseType {
     /// let keyphrase_type = KeyPhraseType::for_word_count(12).unwrap();
     /// ```
     pub fn for_word_count(size: usize) -> Result<KeyPhraseType, Error> {
-        let keyphrase_type = match size {
+        let keyphrase_type: KeyPhraseType = match size {
             12 => KeyPhraseType::Words12,
             15 => KeyPhraseType::Words15,
             18 => KeyPhraseType::Words18,
@@ -76,7 +76,7 @@ impl KeyPhraseType {
     /// let keyphrase_type = KeyPhraseType::for_key_size(128).unwrap();
     /// ```
     pub fn for_key_size(size: usize) -> Result<KeyPhraseType, Error> {
-        let keyphrase_type = match size {
+        let keyphrase_type: KeyPhraseType = match size {
             128 => KeyPhraseType::Words12,
             160 => KeyPhraseType::Words15,
             192 => KeyPhraseType::Words18,
@@ -110,7 +110,7 @@ impl KeyPhraseType {
     ///
     /// [KeyPhraseType::entropy_bits()]: ./enum.KeyPhraseType.html#method.entropy_bits
     pub fn for_phrase(phrase: &str) -> Result<KeyPhraseType, Error> {
-        let word_count = phrase.split(" ").count();
+        let word_count: usize = phrase.split(" ").count();
 
         Self::for_word_count(word_count)
     }

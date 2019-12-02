@@ -56,8 +56,8 @@ impl KeyPhrase {
     ///
     /// [KeyPhrase]: ./keyphrase/struct.KeyPhrase.html
     /// [KeyPhrase::phrase()]: ./keyphrase/struct.KeyPhrase.html#method.phrase
-    pub fn new(mtype: KeyPhraseType, lang: Language) -> KeyPhrase {
-        let entropy = gen_random_bytes(mtype.entropy_bits() / 8);
+    pub fn new(keyphrase_type: KeyPhraseType, lang: Language) -> KeyPhrase {
+        let entropy: Vec<u8> = gen_random_bytes(keyphrase_type.entropy_bits() / 8);
 
         KeyPhrase::from_entropy_unchecked(entropy, lang)
     }

@@ -26,8 +26,8 @@ impl Seed {
     ///
     /// [KeyPhrase]: ./keyphrase/struct.KeyPhrase.html
     pub fn new(keyphrase: &KeyPhrase, password: &str) -> Self {
-        let salt = format!("keyphrase{}", password);
-        let bytes = pbkdf2(keyphrase.entropy(), &salt);
+        let salt: String = format!("keyphrase{}", password);
+        let bytes: Vec<u8> = pbkdf2(keyphrase.entropy(), &salt);
 
         Self { bytes }
     }

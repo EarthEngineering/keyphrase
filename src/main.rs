@@ -4,7 +4,7 @@ fn main() {
     better_panic::install();
 
     println!("English:");
-    let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
     let phrase: &str = keyphrase.phrase();
     println!("KeyPhrase: {}", phrase);
 
@@ -14,19 +14,19 @@ fn main() {
     println!("----------");
 
     println!("Korean:");
-    let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::Korean);
+    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words12, Language::Korean);
     let phrase: &str = keyphrase.phrase();
     println!("KeyPhrase: {}", phrase);
     println!("----------");
 
     println!("Italian:");
-    let keyphrase = KeyPhrase::new(KeyPhraseType::Words12, Language::Italian);
+    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words12, Language::Italian);
     let phrase: &str = keyphrase.phrase();
     println!("KeyPhrase: {}", phrase);
     println!("----------");
 
     println!("Chinese Traditional:");
-    let keyphrase = KeyPhrase::new(KeyPhraseType::Words24, Language::ChineseTraditional);
+    let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words24, Language::ChineseTraditional);
     let phrase: &str = keyphrase.phrase();
     println!("KeyPhrase: {}", phrase);
     println!("----------");
