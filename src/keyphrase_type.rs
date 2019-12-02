@@ -58,7 +58,7 @@ impl KeyPhraseType {
             18 => KeyPhraseType::Words18,
             21 => KeyPhraseType::Words21,
             24 => KeyPhraseType::Words24,
-            _ => Err(ErrorKind::InvalidWordLength(size))?,
+            _ => return Err(ErrorKind::InvalidWordLength(size).into()),
         };
 
         Ok(keyphrase_type)
@@ -82,7 +82,7 @@ impl KeyPhraseType {
             192 => KeyPhraseType::Words18,
             224 => KeyPhraseType::Words21,
             256 => KeyPhraseType::Words24,
-            _ => Err(ErrorKind::InvalidKeysize(size))?,
+            _ => return Err(ErrorKind::InvalidKeysize(size).into()),
         };
 
         Ok(keyphrase_type)
@@ -110,7 +110,7 @@ impl KeyPhraseType {
     ///
     /// [KeyPhraseType::entropy_bits()]: ./enum.KeyPhraseType.html#method.entropy_bits
     pub fn for_phrase(phrase: &str) -> Result<KeyPhraseType, Error> {
-        let word_count: usize = phrase.split(" ").count();
+        let word_count: usize = phrase.split(' ').count();
 
         Self::for_word_count(word_count)
     }
@@ -128,7 +128,7 @@ impl KeyPhraseType {
     ///
     /// let total_bits = keyphrase_type.total_bits();
     /// ```
-    pub fn total_bits(&self) -> usize {
+    pub fn total_bits(self) -> usize {
         self.entropy_bits() + self.checksum_bits() as usize
     }
 
@@ -145,8 +145,8 @@ impl KeyPhraseType {
     ///
     /// let entropy_bits = keyphrase_type.entropy_bits();
     /// ```
-    pub fn entropy_bits(&self) -> usize {
-        (*self as usize) >> ENTROPY_OFFSET
+    pub fn entropy_bits(self) -> usize {
+        (self as usize) >> ENTROPY_OFFSET
     }
 
     /// Return the number of checksum bits
@@ -162,8 +162,8 @@ impl KeyPhraseType {
     ///
     /// let checksum_bits = keyphrase_type.checksum_bits();
     /// ```
-    pub fn checksum_bits(&self) -> u8 {
-        (*self as usize) as u8
+    pub fn checksum_bits(self) -> u8 {
+        (self as usize) as u8
     }
 
     /// Return the number of words
@@ -177,7 +177,7 @@ impl KeyPhraseType {
     ///
     /// let word_count = keyphrase_type.word_count();
     /// ```
-    pub fn word_count(&self) -> usize {
+    pub fn word_count(self) -> usize {
         self.total_bits() / 11
     }
 }
