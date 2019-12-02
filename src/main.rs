@@ -8,10 +8,11 @@ fn main() {
 
     // get the HD wallet seed
     let seed = Seed::new(&keyphrase, "");
+    println!("{:X}", seed);
 
     // get the HD wallet seed as raw bytes
-    let seed_bytes: &[u8] = seed.as_bytes();
+    // let seed_bytes: &[u8] = seed.as_bytes();
 
     // print the HD wallet seed as a hex string
-    println!("{:X}", seed);
+    // println!("{:X}", seed_bytes);
 }
