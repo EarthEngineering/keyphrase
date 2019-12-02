@@ -1,5 +1,7 @@
 # KeyPhrase
 
+![Key](./key.jpg "Key")
+
 KeyPhrase generator for the EARTH Network. KeyPhrases are human readable backup phrase which contains most of the information needed to recreate your EARTH addresses.
 
 Technically KeyPhrases are [BIP0039](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) mnemonics.
