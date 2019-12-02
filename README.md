@@ -82,3 +82,7 @@ Full docs are available via
 ```
 cargo doc --no-deps --open
 ```
+
+## Acknowledgments
+
+This project was originally forked from [bip39-rs](https://github.com/infincia/bip39-rs). Thanks to that team for an amazing project! 🎩
