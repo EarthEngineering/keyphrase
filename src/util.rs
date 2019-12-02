@@ -181,7 +181,7 @@ where
 
         (
             (lower * In::SIZE) / Out::SIZE,
-            upper.map(|n| (n * In::SIZE) / Out::SIZE),
+            upper.map(|n: usize| (n * In::SIZE) / Out::SIZE),
         )
     }
 }

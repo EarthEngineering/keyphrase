@@ -1,8 +1,8 @@
 use crate::crypto::{gen_random_bytes, sha256_first_byte};
 use crate::error::ErrorKind;
 use crate::keyphrase_type::KeyPhraseType;
-use crate::language::{Language, WordMap};
-use crate::util::{checksum, BitWriter, IterExt};
+use crate::language::{Language, WordList, WordMap};
+use crate::util::{checksum, BitWriter, Bits11, IterExt};
 use failure::Error;
 use std::fmt;
 
@@ -88,10 +88,10 @@ impl KeyPhrase {
     where
         E: Into<Vec<u8>>,
     {
-        let entropy = entropy.into();
-        let wordlist = lang.wordlist();
+        let entropy: Vec<u8> = entropy.into();
+        let wordlist: &WordList = lang.wordlist();
 
-        let checksum_byte = sha256_first_byte(&entropy);
+        let checksum_byte: u8 = sha256_first_byte(&entropy);
 
         // First, create a byte iterator for the given entropy and the first byte of the
         // hash of the entropy that will serve as the checksum (up to 8 bits for biggest
@@ -106,7 +106,7 @@ impl KeyPhrase {
             .iter()
             .chain(Some(&checksum_byte))
             .bits()
-            .map(|bits| wordlist.get_word(bits))
+            .map(|bits: Bits11| wordlist.get_word(bits))
             .join(" ");
 
         KeyPhrase {

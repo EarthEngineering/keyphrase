@@ -45,7 +45,7 @@ mod lazy {
             .inner
             .iter()
             .enumerate()
-            .map(|(i, item)| (*item, Bits11::from(i as u16)))
+            .map(|(i, item): (usize, &&'static str)| (*item, Bits11::from(i as u16)))
             .collect();
 
         WordMap { inner }
