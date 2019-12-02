@@ -1,7 +1,7 @@
 use crate::crypto::{gen_random_bytes, sha256_first_byte};
 use crate::error::ErrorKind;
 use crate::keyphrase_type::KeyPhraseType;
-use crate::language::Language;
+use crate::language::{Language, WordMap};
 use crate::util::{checksum, BitWriter, IterExt};
 use failure::Error;
 use std::fmt;
@@ -102,7 +102,7 @@ impl KeyPhrase {
         //
         // Given the entropy is of correct size, this ought to give us the correct word
         // count.
-        let phrase = entropy
+        let phrase: String = entropy
             .iter()
             .chain(Some(&checksum_byte))
             .bits()
@@ -137,14 +137,14 @@ impl KeyPhrase {
     where
         S: Into<String>,
     {
-        let phrase = phrase.into();
+        let phrase: String = phrase.into();
 
         // this also validates the checksum and phrase length before returning the entropy so we
         // can store it. We don't use the validate function here to avoid having a public API that
         // takes a phrase string and returns the entropy directly.
-        let entropy = KeyPhrase::phrase_to_entropy(&phrase, lang)?;
+        let entropy: Vec<u8> = KeyPhrase::phrase_to_entropy(&phrase, lang)?;
 
-        let keyphrase = KeyPhrase {
+        let keyphrase: KeyPhrase = KeyPhrase {
             phrase,
             lang,
             entropy,
@@ -179,7 +179,7 @@ impl KeyPhrase {
     /// used as the seed is likely to cause problems for someone eventually. All the other functions
     /// that return something like that are explicit about what it is and what to use it for.
     fn phrase_to_entropy(phrase: &str, lang: Language) -> Result<Vec<u8>, Error> {
-        let wordmap = lang.wordmap();
+        let wordmap: &WordMap = lang.wordmap();
 
         // Preallocate enough space for the longest possible word list
         let mut bits = BitWriter::with_capacity(264);
@@ -188,7 +188,7 @@ impl KeyPhrase {
             bits.push(wordmap.get_bits(&word)?);
         }
 
-        let mtype = KeyPhraseType::for_word_count(bits.len() / 11)?;
+        let mtype: KeyPhraseType = KeyPhraseType::for_word_count(bits.len() / 11)?;
 
         debug_assert!(
             bits.len() == mtype.total_bits(),
@@ -196,15 +196,15 @@ impl KeyPhrase {
         );
 
         let mut entropy = bits.into_bytes();
-        let entropy_bytes = mtype.entropy_bits() / 8;
+        let entropy_bytes: usize = mtype.entropy_bits() / 8;
 
-        let actual_checksum = checksum(entropy[entropy_bytes], mtype.checksum_bits());
+        let actual_checksum: u8 = checksum(entropy[entropy_bytes], mtype.checksum_bits());
 
         // Truncate to get rid of the byte containing the checksum
         entropy.truncate(entropy_bytes);
 
-        let checksum_byte = sha256_first_byte(&entropy);
-        let expected_checksum = checksum(checksum_byte, mtype.checksum_bits());
+        let checksum_byte: u8 = sha256_first_byte(&entropy);
+        let expected_checksum: u8 = checksum(checksum_byte, mtype.checksum_bits());
 
         if actual_checksum != expected_checksum {
             Err(ErrorKind::InvalidChecksum)?;
@@ -311,9 +311,9 @@ mod test {
 
     #[test]
     fn back_to_back() {
-        let m1 = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
-        let m2 = KeyPhrase::from_phrase(m1.phrase(), Language::English).unwrap();
-        let m3 = KeyPhrase::from_entropy(m1.entropy(), Language::English).unwrap();
+        let m1: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words12, Language::English);
+        let m2: KeyPhrase = KeyPhrase::from_phrase(m1.phrase(), Language::English).unwrap();
+        let m3: KeyPhrase = KeyPhrase::from_entropy(m1.entropy(), Language::English).unwrap();
 
         assert_eq!(m1.entropy(), m2.entropy(), "Entropy must be the same");
         assert_eq!(m1.entropy(), m3.entropy(), "Entropy must be the same");
@@ -323,45 +323,47 @@ mod test {
 
     #[test]
     fn keyphrase_from_entropy() {
-        let entropy = &[
+        let entropy: &[u8; 16] = &[
             0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84,
             0x6A, 0x79,
         ];
-        let phrase = "crop cash unable insane eight faith inflict route frame loud box vibrant";
+        let phrase: &str =
+            "crop cash unable insane eight faith inflict route frame loud box vibrant";
 
-        let keyphrase = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
+        let keyphrase: KeyPhrase = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
 
         assert_eq!(phrase, keyphrase.phrase());
     }
 
     #[test]
     fn keyphrase_from_phrase() {
-        let entropy = &[
+        let entropy: &[u8; 16] = &[
             0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84,
             0x6A, 0x79,
         ];
-        let phrase = "crop cash unable insane eight faith inflict route frame loud box vibrant";
+        let phrase: &str =
+            "crop cash unable insane eight faith inflict route frame loud box vibrant";
 
-        let keyphrase = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
+        let keyphrase: KeyPhrase = KeyPhrase::from_phrase(phrase, Language::English).unwrap();
 
         assert_eq!(entropy, keyphrase.entropy());
     }
 
     #[test]
     fn keyphrase_format() {
-        let keyphrase = KeyPhrase::new(KeyPhraseType::Words15, Language::English);
+        let keyphrase: KeyPhrase = KeyPhrase::new(KeyPhraseType::Words15, Language::English);
 
         assert_eq!(keyphrase.phrase(), format!("{}", keyphrase));
     }
 
     #[test]
     fn keyphrase_hex_format() {
-        let entropy = &[
+        let entropy: &[u8; 16] = &[
             0x33, 0xE4, 0x6B, 0xB1, 0x3A, 0x74, 0x6E, 0xA4, 0x1C, 0xDD, 0xE4, 0x5C, 0x90, 0x84,
             0x6A, 0x79,
         ];
 
-        let keyphrase = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
+        let keyphrase: KeyPhrase = KeyPhrase::from_entropy(entropy, Language::English).unwrap();
 
         assert_eq!(
             format!("{:x}", keyphrase),
