@@ -4,7 +4,7 @@
 
 KeyPhrase generator for the [EARTH Network](https://www.earth.engineering). KeyPhrases are human readable backup phrases which contain most of the information needed to recreate your EARTH addresses.
 
-For more info check out the [KeyPhrase Specification](https://github.com/EarthEngineering/keyphrase/wiki/KeyPhrase-Specification)
+For more info check out the [KeyPhrase Specification](https://www.earth.engineering/specs/keyphrase-specification)
 
 ```rust
     println!("English:");
