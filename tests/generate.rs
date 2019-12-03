@@ -1,5 +1,3 @@
-extern crate keyphrase;
-
 use keyphrase::{KeyPhrase, KeyPhraseType, Language, Seed};
 
 fn test_word_count(expected_word_count: usize) {
@@ -14,7 +12,7 @@ fn test_word_count(expected_word_count: usize) {
     let seed: Seed = Seed::new(&keyphrase, "");
     let seed_bytes: &[u8] = seed.as_bytes();
 
-    assert!(seed_bytes.len() == 64);
+    assert_eq!(seed_bytes.len(), 64);
 }
 
 #[test]

@@ -107,21 +107,24 @@ impl fmt::UpperHex for Seed {
     }
 }
 
-
 #[cfg(test)]
 mod test {
     use super::*;
-    
+
     #[test]
     fn should_print_upper_hex_correctly() {
-        let seed = Seed { bytes: vec![1, 10, 16, 255] };
+        let seed = Seed {
+            bytes: vec![1, 10, 16, 255],
+        };
         let hex = format!("{:?}", seed);
         assert_eq!(hex, "0x010A10FF")
     }
 
     #[test]
     fn should_print_lower_hex_correctly() {
-        let seed = Seed { bytes: vec![255, 16, 10, 1] };
+        let seed = Seed {
+            bytes: vec![255, 16, 10, 1],
+        };
         let hex = format!("{:x}", seed);
         assert_eq!(hex, "ff100a01")
     }
