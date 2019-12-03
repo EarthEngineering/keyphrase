@@ -4,7 +4,7 @@ fn main() {
     better_panic::install();
 
     let word_count: KeyPhraseType = KeyPhraseType::Words12;
-    let lang: Language = Language::English;
+    //    let lang: Language = Language::English;
     let lang: Language = Language::ChineseSimplified;
     let keyphrase: KeyPhrase = KeyPhrase::new(word_count, lang);
     let phrase: &str = keyphrase.phrase();

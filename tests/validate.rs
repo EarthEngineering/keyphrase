@@ -1,5 +1,3 @@
-extern crate keyphrase;
-
 use keyphrase::{KeyPhrase, KeyPhraseType, Language};
 
 fn validate_language(lang: Language) {

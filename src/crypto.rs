@@ -5,9 +5,8 @@
 //! [Seed]: ../seed/struct.Seed.html
 //!
 
-extern crate rand;
-use self::rand::{thread_rng, RngCore};
 use hmac::Hmac;
+use rand::{thread_rng, RngCore};
 use sha2::Digest;
 
 const PBKDF2_ROUNDS: usize = 2048;

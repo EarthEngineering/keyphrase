@@ -87,7 +87,7 @@ impl fmt::LowerHex for Seed {
         }
 
         for byte in &self.bytes {
-            write!(f, "{:x}", byte)?;
+            write!(f, "{:02x}", byte)?;
         }
 
         Ok(())
@@ -100,19 +100,32 @@ impl fmt::UpperHex for Seed {
             f.write_str("0x")?;
         }
 
-        // TODO - Why are values which are less than 10 (in base 10) dropping the leading 0 when converted to hex?
-        // Ex: 03 becomes 3 which is causing the final seed string to be odd numbers. Is this an issue?
-        // for byte in &self.bytes {
-        //     if byte < &10 {
-        //         write!(f, "0{:X}", byte)?;
-        //     } else {
-        //         write!(f, "{:X}", byte)?;
-        //     }
-        // }
-
         for byte in &self.bytes {
-            write!(f, "{:X}", byte)?;
+            write!(f, "{:02X}", byte)?;
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn should_print_upper_hex_correctly() {
+        let seed = Seed {
+            bytes: vec![1, 10, 16, 255],
+        };
+        let hex = format!("{:?}", seed);
+        assert_eq!(hex, "0x010A10FF")
+    }
+
+    #[test]
+    fn should_print_lower_hex_correctly() {
+        let seed = Seed {
+            bytes: vec![255, 16, 10, 1],
+        };
+        let hex = format!("{:x}", seed);
+        assert_eq!(hex, "ff100a01")
     }
 }
